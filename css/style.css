@@ -10,11 +10,11 @@
   .header-banner{
     padding-top:35px;
     padding-bottom:100px;
-    height: 550px;
     color:#ffffff;
     font-family:Helvetica, serif;
     font-weight:100;
     background-image:url("./assets/back.png");
+    height: 550px;
     background-size: cover; /* Ensures the image covers the entire header */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -29,6 +29,7 @@
     background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
     z-index: 1;
   }
+  
   .header-banner h1,
   .header-banner .menu-item,
   .header-banner .lead-title,
@@ -38,6 +39,7 @@
     z-index: 2; /* Ensure text is above the overlay */
     color: white; /* Ensure text color is white */
   }
+
   .container-width{
     width:90%;
     max-width:1150px;
