@@ -13,7 +13,7 @@
     color:#ffffff;
     font-family:Helvetica, serif;
     font-weight:100;
-    background-image:url("../assets/back.png");
+    background-image:url("./assets/back.png");
     background-size: cover; /* Ensures the image covers the entire header */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
