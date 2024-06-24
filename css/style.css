@@ -145,7 +145,22 @@
     font-weight:100;
     overflow:hidden;
   }
+  .card2{
+    background-color:white;
+    height:300px;
+    width:1000px;
+    margin-bottom:30px;
+    box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border-radius:2px;
+    transition:all 0.5s ease;
+    font-weight:100;
+    overflow:hidden;
+  }
   .card:hover{
+    margin-top:-5px;
+    box-shadow:0 20px 30px 0 rgba(0, 0, 0, 0.2);
+  }
+  .card2:hover{
     margin-top:-5px;
     box-shadow:0 20px 30px 0 rgba(0, 0, 0, 0.2);
   }
