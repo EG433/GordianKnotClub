@@ -40,6 +40,41 @@
     z-index: 2; /* Ensure text is above the overlay */
     color: white; /* Ensure text color is white */
   }
+
+  .header-banner2 {
+    padding-top: 35px;
+    padding-bottom: 100px;
+    height: 550px;
+    color: #ffffff;
+    font-family: Helvetica, serif;
+    font-weight: 100;
+    background-image: url('/GordianKnotClub/assets/Performance.png'); /* Adjust path based on repository name */
+    background-size: cover; /* Ensures the image covers the entire header */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+  }
+  
+  .header-banner2::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 550px;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
+    z-index: 1;
+  }
+  
+  .header-banner2 h1,
+  .header-banner2 .menu-item,
+  .header-banner2 .lead-title,
+  .header-banner2 .lead-btn,
+  .header-banner2 .sub-lead-title {
+    position: relative;
+    z-index: 2; /* Ensure text is above the overlay */
+    color: white; /* Ensure text color is white */
+  }
+
   .container-width{
     width:90%;
     max-width:1150px;
