@@ -125,7 +125,7 @@
     margin-bottom:55px;
     font-size:1em;
     color:rgba(0, 0, 0, 0.5);
-    text-align:center;
+    text-align:left;
     padding:5px;
   }
   .cards{
@@ -525,4 +525,12 @@
       display:none;
     }
   }
-  
+
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px; /* Adjust as needed */
+    margin: 0 auto; /* Center horizontally */
+  }
