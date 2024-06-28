@@ -120,6 +120,8 @@
     font-weight:700;
     color:#555;
     padding:5px;
+    display: block; /* Ensure the title starts on a new line */
+    margin-top: 20px; /* Space above the title */
   }
   .flex-desc{
     margin-bottom:55px;
@@ -131,8 +133,16 @@
   .cards{
     padding:20px 0;
     display:flex;
-    justify-content:space-around;
+    justify-content: space-around;
     flex-flow:wrap;
+  }
+  .cards2{
+    padding:20px 0;
+    display:flex;
+    justify-content:center;
+    flex-flow:wrap;
+    flex-direction: column;
+    align-items: center;
   }
   .card{
     background-color:white;
@@ -154,7 +164,7 @@
     border-radius:2px;
     transition:all 0.5s ease;
     font-weight:100;
-    overflow:hidden;
+    overflow-y: auto; /* Enable vertical scrolling */
   }
   .card:hover{
     margin-top:-5px;
@@ -534,3 +544,23 @@
     height: 400px; /* Adjust as needed */
     margin: 0 auto; /* Center horizontally */
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    height: 100%;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+.card2 table {
+  width: 100%;
+  border-collapse: collapse;
+}
