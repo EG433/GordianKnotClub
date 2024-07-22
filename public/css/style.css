@@ -14,7 +14,7 @@
     color: #ffffff;
     font-family: Helvetica, serif;
     font-weight: 100;
-    background-image: url('/GordianKnotClub/assets/back.png'); /* Adjust path based on repository name */
+    background-image: url('../assets/back.png'); /* Adjust path based on repository name */
     background-size: cover; /* Ensures the image covers the entire header */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents the image from repeating */

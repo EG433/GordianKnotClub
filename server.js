@@ -12,6 +12,18 @@ const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require("method-override")
 
+const {Client} = require('pg')
+
+const con = new Client({
+  host: 'localhost',
+  user: 'postgres',
+  port: 5432,
+  password: 'qazwsx',
+  database: 'clubdata'
+})
+
+con.connect().then(() => console.log('connected'))
+
 initializePassport(
   passport,
   email => users.find(user => user.email === email),
@@ -19,6 +31,7 @@ initializePassport(
   )
 
 const users = []
+
 
 app.use(express.urlencoded({extended: false}))
 app.use(flash())
@@ -31,6 +44,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride("_method")) 
 
+
 // Configuring the register post functionality
 app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
   successRedirect: "/",
@@ -38,25 +52,29 @@ app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
   failureFlash: true
 }))
 
-// Configuring the register post functionality
+// Register route
 app.post("/register", checkNotAuthenticated, async (req, res) => {
-
   try {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      users.push({
-          id: Date.now().toString(), 
-          name: req.body.name,
-          email: req.body.email,
-          password: hashedPassword,
-      })
-      console.log(users); // Display newly registered in the console
-      res.redirect("/login")
-      
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const newUser = {
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword
+    }
+    
+    const insertQuery = 'INSERT INTO usertable (name, email, password) VALUES ($1, $2, $3) RETURNING *'
+    const values = [newUser.name, newUser.email, newUser.password]
+    
+    const result = await con.query(insertQuery, values)
+    console.log(result.rows[0]) // Display newly registered user in the console
+    
+    res.redirect("/login")
   } catch (e) {
-      console.log(e);
-      res.redirect("/register")
+    console.log(e)
+    res.redirect("/register")
   }
 })
+
 
 // Routes
 app.get('/', checkAuthenticated, (req, res) => {
@@ -70,12 +88,31 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render("register.ejs")
 })
-// End Routes
 
-// app.delete('/logout', (req, res) => {
-//     req.logOut()
-//     res.redirect('/login')
-//   })
+const path = require('path');
+
+app.use('/public', express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/performance', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'Performance.html'));
+});
+
+app.get('/posts', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'posts.html'));
+});
+
+app.get('/strategy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'strategy.html'));
+});
+
+app.get('/team', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'Team.html'));
+});
 
 app.delete("/logout", (req, res) => {
   req.logout(req.user, err => {
@@ -98,58 +135,5 @@ function checkNotAuthenticated(req, res, next){
   next()
 }
 
-app.listen(5500)
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-// const knex = require('knex');
-
-// // Configure database connection
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     host: '127.0.0.1',
-//     user: 'postgres',
-//     password: 'your_database_password',
-//     database: 'mydatabase'
-//   }
-// });
-
-// const app = express();
-
-// // Apply middleware
-// app.use(cors());
-// app.use(bodyParser.json());
-
-// // Serve static files from public directory
-// app.use(express.static('public'));
-
-// // Registration endpoint
-// app.post('/register-user', (req, res) => {
-//   const { name, email, password } = req.body;
-//   if (!name || !email || !password) {
-//     return res.status(400).json({ error: 'All fields are required' });
-//   }
-
-//   db('users').insert({
-//     name: name,
-//     email: email,
-//     password: password // Note: In production, you should hash the password before storing it.
-//   }).returning('*')
-//     .then(user => {
-//       res.json({ user: user[0] });
-//     })
-//     .catch(error => {
-//       if (error.code === '23505') { // Unique violation
-//         res.status(409).json({ error: 'Email already exists' });
-//       } else {
-//         res.status(500).json({ error: 'Database error' });
-//       }
-//     });
-// });
-
-// // Set the port and start server
-// const PORT = process.env.PORT || 5500;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
- 
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
